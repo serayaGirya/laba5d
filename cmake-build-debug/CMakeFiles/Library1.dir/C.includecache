@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/serge/CLionProjects/Library1/libs/algorithms/algorithms.h
+stdio.h
+-
+
+C:/Users/serge/CLionProjects/Library1/libs/data_structures/matrix/matrix.h
+stdio.h
+-
+stdbool.h
+-
+assert.h
+-
+
+C:/Users/serge/CLionProjects/Library1/main.c
+libs/data_structures/matrix/matrix.h
+C:/Users/serge/CLionProjects/Library1/libs/data_structures/matrix/matrix.h
+libs/algorithms/algorithms.h
+C:/Users/serge/CLionProjects/Library1/libs/algorithms/algorithms.h
+
