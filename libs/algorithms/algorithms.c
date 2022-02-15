@@ -46,3 +46,36 @@ int maxInRow(const int *a, int nCols) {
     return max;
 }
 
+int minInCol(int *a, int size) {
+    int min = a[0];
+    for (size_t i = 1; i < size; i++) {
+        if (a[i] <= min) {
+            min = a[i];
+        }
+    }
+    return min;
+}
+
+int min2(int a, int b) {
+    return a < b ? a : b;
+}
+
+int sumInArray(int *a, size_t size) {
+    int sum = 0;
+    for (size_t i = 0; i < size; i++) {
+        sum += a[i];
+    }
+    return sum;
+}
+
+bool isUnique(int *a, size_t size) {
+    for (size_t i = 1; i < size; i++) {
+        if (a[i - 1] == a[i])
+            return false;
+    }
+    return true;
+}
+
+int max2(int a, int b) {
+    return a > b ? a : b;
+}

@@ -7,7 +7,7 @@
 #include <malloc.h>
 #include "../../algorithms/algorithms.h"
 
-//возвращает матрицу, размещает в динамической памяти матрицу размером nRows на nCols
+
 matrix getMemMatrix(int nRows, int nCols) {
     int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; ++i) {
@@ -16,7 +16,6 @@ matrix getMemMatrix(int nRows, int nCols) {
     return (matrix) {values, nRows, nCols};
 }
 
-//возвращает указатель на нулевую матрицу, размещает в динамической памяти массив из nMаtrices матриц размером nRows на nCols
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
     matrix *ms = (matrix *) malloc(sizeof(matrix));
     for (int i = 0; i < nMatrices; ++i) {
@@ -25,21 +24,18 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
     return ms;
 }
 
-//освобождает память, выделенную под хранение матрицы m
 void freeMemMatrix(matrix *m) {
     for (int i = 0; i < m->nRows; ++i) {
         free(m->values[i]);
     }
 }
 
-//освобождает память, выделенную под хранение массива ms из nMatrices матриц
 void freeMemMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; ++i) {
         freeMemMatrix(&ms[i]);
     }
 }
 
-//вводит матрицу m
 void inputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; ++i) {
         for (int j = 0; j < m.nCols; ++j) {
@@ -48,14 +44,13 @@ void inputMatrix(matrix m) {
     }
 }
 
-//
+
 void inputMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; ++i) {
         inputMatrix(ms[i]);
     }
 }
 
-//
 void outputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; ++i) {
         for (int j = 0; j < m.nCols; ++j) {
@@ -66,7 +61,6 @@ void outputMatrix(matrix m) {
     }
 }
 
-//
 void outputMatrices(matrix *ms, const int nMatrices) {
     for (int i = 0; i < nMatrices; ++i) {
         outputMatrix(ms[i]);
@@ -79,7 +73,6 @@ void swapRows(matrix m, int i1, int i2) {
     m.values[i2] = t;
 }
 
-//
 void swapColumns(matrix m, int j1, int j2) {
     for (int i = 0; i < m.nRows; ++i) {
         swap(m.values[j1], m.values[j2], sizeof(int *));
@@ -219,4 +212,103 @@ matrix createMatrixFromArray(const int *a, size_t nRows,
             m.values[i][j] = a[k++];
 
     return m;
+}
+
+matrix multiplicationMatrices(matrix m1, matrix m2) {
+    assert(m1.nCols == m2.nRows);
+    matrix newMatrix = getMemMatrix(m1.nRows, m2.nCols);
+    for (int i = 0; i < m1.nRows; ++i) {
+        for (int j = 0; j < m2.nCols; ++j) {
+            newMatrix.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; ++k) {
+                newMatrix.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+    return (matrix) newMatrix;
+}
+
+void task1(matrix m) {
+    position maxIndex = getMaxValuePos(m);
+    position minIndex = getMinValuePos(m);
+    swapRows(m, maxIndex.rowIndex, minIndex.rowIndex);
+}
+
+void task2(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, maxInRow);
+}
+
+void task3(matrix m) {
+    insertionSortColsMatrixByColCriteria(m, minInCol);
+}
+
+matrix task4(matrix m) {
+    if (isSymmetricMatrix(m))
+        return multiplicationMatrices(m, m);
+    else
+        return m;
+}
+
+matrix task5(matrix m) {
+    int sumArray[m.nRows];
+    for (int i = 0; i < m.nRows; ++i) {
+        sumArray[i] = sumInArray(m.values[i], m.nCols);
+    }
+    if (isUnique(sumArray, m.nRows))
+        transposeSquareMatrix(m);
+    return m;
+}
+
+bool task6(matrix m1, matrix m2) {
+    return isEMatrix((multiplicationMatrices(m1, m2)));
+}
+
+int task7(matrix m) {
+    int sumArray[m.nCols + m.nRows - 2];
+    int k = 0;
+    for (int i = 1, j = 0; i < m.nRows; ++i, ++j) {
+        int max = m.values[i][0];
+        int duplicate = i;
+        while (i + 1 < m.nRows && j + 1 < m.nCols) {
+            j++;
+            i++;
+            max = max2(max, m.values[i][j]);
+        }
+        sumArray[k++] = max;
+        j = 0;
+        i = duplicate;
+    }
+    for (int i = 1, j = 0; i < m.nCols; i++, j++) {
+        int max = m.values[0][i];
+        int duplicate = i;
+        while (i + 1 < m.nCols && j + 1 < m.nRows) {
+            j++;
+            i++;
+            max = max2(max, m.values[j][i]);
+        }
+        sumArray[k++] = max;
+        j = 0;
+        i = duplicate;
+    }
+    int sum = sumInArray(sumArray, m.nRows + m.nCols - 2);
+    return sum;
+}
+
+int task8(matrix m) {
+    position p = getMaxValuePos(m);
+    int min = m.values[p.rowIndex][p.colIndex];
+    int left = p.colIndex;
+    int right = p.colIndex;
+    for (int i = p.rowIndex - 1; i >= 0; --i) {
+        if (left - 1 >= 0)
+            left--;
+        if (right + 1 < m.nCols)
+            right++;
+        int duplicate = right;
+        while (duplicate >= left) {
+            min = min2(min, m.values[i][duplicate]);
+            right--;
+        }
+    }
+    return min;
 }
