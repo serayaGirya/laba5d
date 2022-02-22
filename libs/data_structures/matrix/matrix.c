@@ -372,3 +372,21 @@ int countEqClassesByRowsSum(matrix m) {
     return countNUnique(rowSums, m.nRows);
 }
 
+//task 11
+int getNSpecialElement(matrix m) {
+    int countSpecial = 0;
+    for (int j = 0; j < m.nCols; ++j) {
+        int specialElement = m.values[0][j];
+        int sumInCol = 0;
+        for (int i = 0; i < m.nRows; ++i) {
+            if (m.values[i][j] > specialElement) {
+                sumInCol += specialElement;
+                specialElement = m.values[i][j];
+            } else
+                sumInCol += m.values[i][j];
+        }
+        if (specialElement > sumInCol)
+            countSpecial += 1;
+    }
+    return countSpecial;
+}
