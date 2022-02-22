@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <memory.h>
 
 
 typedef struct matrix {
@@ -95,7 +97,16 @@ position getMaxValuePos(matrix m);
 matrix createMatrixFromArray(const int *a, size_t nRows,
                              size_t nCols);
 
+//
+matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
+
 //возвращает матрицу - произведение двух матриц m1 и m2
 matrix multiplicationMatrices(matrix m1, matrix m2);
+
+void sortByDistances(matrix m);
+
+position getLeftMin(matrix m);
+
+void swapPenultimateRow(matrix m);
 
 #endif //LIBRARY1_MATRIX_H

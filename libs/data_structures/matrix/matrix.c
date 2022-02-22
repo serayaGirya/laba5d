@@ -44,7 +44,6 @@ void inputMatrix(matrix m) {
     }
 }
 
-
 void inputMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; ++i) {
         inputMatrix(ms[i]);
@@ -97,7 +96,32 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int))
     free(a);
 }
 
-void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+float getDistance(int *a, int n) {
+    float distance = 0;
+    for (int i = 0; i < n; i++)
+        distance += (float) (a[i] * a[i]);
+
+    return sqrtf(distance);
+}
+
+void insertionSortRowsMatrixByRowCriteria_float(matrix m, float (*criteria)(int *, int)) {
+    float rowsCriteria[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowsCriteria[i] = criteria(m.values[i], m.nCols);
+
+    for (int i = 1; i < m.nRows; i++)
+        for (int j = i; j > 0 && rowsCriteria[j - 1] > rowsCriteria[j]; j--) {
+            swap(&rowsCriteria[j - 1], &rowsCriteria[j], sizeof(float));
+            swapRows(m, j, j - 1);
+        }
+}
+
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteria_float(m, getDistance);
+}
+
+//TODO: selectionSort
+void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
     int *criteriaArray = (int *) malloc(sizeof(int) * m.nCols);
     int *additionalArray = (int *) malloc(sizeof(int) * m.nRows);
     for (int i = 0; i < m.nCols; ++i) {
@@ -105,11 +129,13 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
             additionalArray[j] = m.values[j][i];
         criteriaArray[i] = criteria(additionalArray, m.nRows);
     }
-    for (int i = 0; i < m.nCols; ++i) {
-        for (int j = i; j > 0 && criteriaArray[j - 1] > criteriaArray[j]; j--) {
-            swap(&criteriaArray[j - 1], &criteriaArray[j], sizeof(int));
-            swapColumns(m, j, j - 1);
-        }
+    for (int i = 0; i < m.nCols - 1; ++i) {
+        int minPos = i;
+        for (int j = i + 1; j < m.nCols; j++)
+            if (criteriaArray[j] < criteriaArray[minPos])
+                minPos = j;
+        swap(&criteriaArray[i], &criteriaArray[minPos], sizeof(int));
+        swapColumns(m, i, minPos);
     }
     free(criteriaArray);
     free(additionalArray);
@@ -120,17 +146,14 @@ bool isSquareMatrix(matrix m) {
 }
 
 bool twoMatricesEqual(matrix m1, matrix m2) {
-    if (m1.nRows != m2.nRows)
+    if (m1.nRows != m2.nRows && m1.nCols != m2.nCols)
         return false;
-    else {
-        bool isEqual = false;
-        for (int i = 0; i < m1.nRows; ++i) {
-            for (int j = 0; j < m1.nCols; ++j) {
-                isEqual = (m1.values[i][j] == m2.values[i][j]);
-            }
-        }
-        return isEqual;
-    }
+
+    for (int i = 0; i < m2.nRows; ++i)
+        if (memcmp(m1.values[i], m2.values[i], sizeof(int) * m1.nCols) != 0)
+            return false;
+
+    return true;
 }
 
 bool isEMatrix(matrix m) {
@@ -150,7 +173,7 @@ bool isEMatrix(matrix m) {
 bool isSymmetricMatrix(matrix m) {
     bool isSymmetric = false;
     for (int i = 0; i < m.nRows; ++i) {
-        for (int j = 0; j < m.nCols; ++j) {
+        for (int j = i + 1; j < m.nCols; ++j) {
             isSymmetric = (m.values[j][i] == m.values[i][j]);
         }
     }
@@ -260,7 +283,10 @@ matrix task5(matrix m) {
 }
 
 bool task6(matrix m1, matrix m2) {
-    return isEMatrix((multiplicationMatrices(m1, m2)));
+    matrix m = multiplicationMatrices(m1, m2);
+    bool result = isEMatrix(m);
+    freeMemMatrix(&m);
+    return result;
 }
 
 int task7(matrix m) {
@@ -300,15 +326,49 @@ int task8(matrix m) {
     int left = p.colIndex;
     int right = p.colIndex;
     for (int i = p.rowIndex - 1; i >= 0; --i) {
-        if (left - 1 >= 0)
+        if (left - 1 >= 0) {
             left--;
-        if (right + 1 < m.nCols)
+        }
+        if (right + 1 < m.nCols) {
             right++;
+        }
         int duplicate = right;
         while (duplicate >= left) {
             min = min2(min, m.values[i][duplicate]);
-            right--;
+            duplicate--;
         }
     }
     return min;
 }
+
+//task 10
+int cmp_long_long(const void *pa, const void *pb) {
+    long long parameter1 = *(const long long *) pa;
+    long long parameter2 = *(const long long *) pb;
+
+    if (parameter1 < parameter2)
+        return -1;
+    else if (parameter1 > parameter2)
+        return 1;
+    else
+        return 0;
+}
+
+int countNUnique(long long *a, const int n) {
+    qsort(a, n, sizeof(long long), cmp_long_long);
+    int uniqueCounter = 1;
+    for (int i = 1; i < n; ++i) {
+        if (a[i] != a[i - 1])
+            uniqueCounter += 1;
+    }
+    return uniqueCounter;
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    long long rowSums[m.nRows];
+    for (int i = 0; i < m.nRows; ++i) {
+        rowSums[i] = getSum(m.values, m.nRows);
+    }
+    return countNUnique(rowSums, m.nRows);
+}
+

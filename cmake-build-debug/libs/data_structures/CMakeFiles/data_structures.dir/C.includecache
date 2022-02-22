@@ -9,10 +9,16 @@
 C:/Users/serge/CLionProjects/Library1/libs/algorithms/algorithms.h
 stdio.h
 -
+stdbool.h
+-
+math.h
+-
 
 C:/Users/serge/CLionProjects/Library1/libs/data_structures/matrix/matrix.c
 matrix.h
 C:/Users/serge/CLionProjects/Library1/libs/data_structures/matrix/matrix.h
+memory.h
+-
 stdio.h
 -
 malloc.h
@@ -26,5 +32,7 @@ stdio.h
 stdbool.h
 -
 assert.h
+-
+stdlib.h
 -
 

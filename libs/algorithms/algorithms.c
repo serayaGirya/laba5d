@@ -56,6 +56,16 @@ int minInCol(int *a, int size) {
     return min;
 }
 
+int minInRow(int *a, int n) {
+    int min = a[0];
+    for (size_t i = 1; i < n; i++) {
+        if (a[i] <= min) {
+            min = a[i];
+        }
+    }
+    return min;
+}
+
 int min2(int a, int b) {
     return a < b ? a : b;
 }
@@ -78,4 +88,12 @@ bool isUnique(int *a, size_t size) {
 
 int max2(int a, int b) {
     return a > b ? a : b;
+}
+
+long long getSum(int *a, int n) {
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum += a[i];
+    }
+    return sum;
 }
