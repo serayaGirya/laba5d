@@ -175,6 +175,8 @@ bool isSymmetricMatrix(matrix m) {
     for (int i = 0; i < m.nRows; ++i) {
         for (int j = i + 1; j < m.nCols; ++j) {
             isSymmetric = (m.values[j][i] == m.values[i][j]);
+            if (isSymmetric == 0)
+                return false;
         }
     }
     return isSymmetric;
@@ -483,7 +485,7 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
 
 int maxAbsoluteValues(matrix m) {
     int norm = abs(m.values[0][0]);
-    for (int i = 0; i <m .nRows; ++i) {
+    for (int i = 0; i < m.nRows; ++i) {
         int max = abs(maxInRow(m.values[i], m.nCols));
         if (norm < max)
             norm = max;
@@ -498,7 +500,7 @@ void printMatricesMinNorm(matrix *ms, int nMatrix) {
     }
     int min = minInRow(normInMatrices, nMatrix);
     for (int i = 0; i < nMatrix; ++i) {
-        if(normInMatrices[i] == min)
+        if (normInMatrices[i] == min)
             outputMatrix(ms[i]);
     }
 }
