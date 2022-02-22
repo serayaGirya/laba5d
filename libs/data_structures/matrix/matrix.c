@@ -478,3 +478,27 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
             outputMatrix(ms[i]);
     }
 }
+
+//task 15
+
+int maxAbsoluteValues(matrix m) {
+    int norm = abs(m.values[0][0]);
+    for (int i = 0; i <m .nRows; ++i) {
+        int max = abs(maxInRow(m.values[i], m.nCols));
+        if (norm < max)
+            norm = max;
+    }
+    return norm;
+}
+
+void printMatricesMinNorm(matrix *ms, int nMatrix) {
+    int normInMatrices[nMatrix];
+    for (int i = 0; i < nMatrix; ++i) {
+        normInMatrices[i] = maxAbsoluteValues(ms[i]);
+    }
+    int min = minInRow(normInMatrices, nMatrix);
+    for (int i = 0; i < nMatrix; ++i) {
+        if(normInMatrices[i] == min)
+            outputMatrix(ms[i]);
+    }
+}
