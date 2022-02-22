@@ -446,3 +446,35 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
     }
     return countRows;
 }
+
+// task 14
+
+int countValues(const int *a, int n, const int value) {
+    int countValue = 0;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] == value)
+            countValue++;
+    }
+    return countValue;
+}
+
+int countZeroRows(matrix m) {
+    int countZeroRow = 0;
+    for (int i = 0; i < m.nRows; ++i) {
+        if (countValues(m.values[i], m.nCols, 0) == m.nCols)
+            countZeroRow++;
+    }
+    return countZeroRow;
+}
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int countZeroRowsInMatrix[nMatrix];
+    for (int i = 0; i < nMatrix; ++i) {
+        countZeroRowsInMatrix[i] = countZeroRows(ms[i]);
+    }
+    int maxCount = maxInRow((const int *) countZeroRowsInMatrix, nMatrix);
+    for (int i = 0; i < nMatrix; ++i) {
+        if (maxCount == countZeroRowsInMatrix[i])
+            outputMatrix(ms[i]);
+    }
+}
