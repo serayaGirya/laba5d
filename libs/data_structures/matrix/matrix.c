@@ -390,3 +390,32 @@ int getNSpecialElement(matrix m) {
     }
     return countSpecial;
 }
+
+//task 12
+
+position getLeftMin(matrix m) {
+    int min = m.values[0][0];
+    position minPos = {0, 0};
+    for (int j = 0; j < m.nCols; j++) {
+        for (int i = 0; i < m.nRows; ++i) {
+            if (m.values[i][j] < min) {
+                minPos.colIndex = i;
+                minPos.rowIndex = j;
+            }
+        }
+    }
+    return minPos;
+}
+
+void swapPenultimateRow(matrix m) {
+    if (m.nRows < 2) {
+        fprintf(stderr, "not enough rows");
+        exit(1337);
+    }
+    position minEl = getLeftMin(m);
+    int col[m.nRows];
+    for (int i = 0; i < m.nRows; ++i) {
+        col[i] = m.values[i][minEl.colIndex];
+    }
+    memcpy(m.values[m.nRows - 2], col, sizeof(int) * m.nCols);
+}
