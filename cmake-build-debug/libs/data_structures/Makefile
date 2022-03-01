@@ -129,29 +129,29 @@ data_structures/fast:
 	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/build
 .PHONY : data_structures/fast
 
-matrix/matrix.obj: matrix/matrix.c.obj
-.PHONY : matrix/matrix.obj
+string/string_.obj: string/string_.c.obj
+.PHONY : string/string_.obj
 
 # target to build an object file
-matrix/matrix.c.obj:
-	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj
-.PHONY : matrix/matrix.c.obj
+string/string_.c.obj:
+	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/string/string_.c.obj
+.PHONY : string/string_.c.obj
 
-matrix/matrix.i: matrix/matrix.c.i
-.PHONY : matrix/matrix.i
+string/string_.i: string/string_.c.i
+.PHONY : string/string_.i
 
 # target to preprocess a source file
-matrix/matrix.c.i:
-	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.i
-.PHONY : matrix/matrix.c.i
+string/string_.c.i:
+	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/string/string_.c.i
+.PHONY : string/string_.c.i
 
-matrix/matrix.s: matrix/matrix.c.s
-.PHONY : matrix/matrix.s
+string/string_.s: string/string_.c.s
+.PHONY : string/string_.s
 
 # target to generate assembly for a file
-matrix/matrix.c.s:
-	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.s
-.PHONY : matrix/matrix.c.s
+string/string_.c.s:
+	cd /d C:\Users\serge\CLionProjects\Library1\cmake-build-debug && $(MAKE) $(MAKESILENT) -f libs\data_structures\CMakeFiles\data_structures.dir\build.make libs/data_structures/CMakeFiles/data_structures.dir/string/string_.c.s
+.PHONY : string/string_.c.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... data_structures
-	@echo ... matrix/matrix.obj
-	@echo ... matrix/matrix.i
-	@echo ... matrix/matrix.s
+	@echo ... string/string_.obj
+	@echo ... string/string_.i
+	@echo ... string/string_.s
 .PHONY : help
 
 

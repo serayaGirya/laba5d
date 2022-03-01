@@ -5,10 +5,8 @@ CMakeFiles/Library1.dir/libs/algorithms/algorithms.c.obj: \
  ../libs/algorithms/algorithms.c \
  ../libs/algorithms/algorithms.h
 CMakeFiles/Library1.dir/libs/data_structures/matrix/matrix.c.obj: \
- ../libs/algorithms/algorithms.h \
- ../libs/data_structures/matrix/matrix.c \
- ../libs/data_structures/matrix/matrix.h
+ ../libs/data_structures/matrix/matrix.c
 CMakeFiles/Library1.dir/main.c.obj: \
  ../libs/algorithms/algorithms.h \
- ../libs/data_structures/matrix/matrix.h \
+ ../libs/data_structures/string/string_.h \
  ../main.c

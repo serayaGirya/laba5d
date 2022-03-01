@@ -1,112 +1,118 @@
+////
+//// Created by serge on 13.02.2022.
+////
 //
-// Created by serge on 13.02.2022.
+//#ifndef LIBRARY1_MATRIX_H
+//#define LIBRARY1_MATRIX_H
 //
-
-#ifndef LIBRARY1_MATRIX_H
-#define LIBRARY1_MATRIX_H
-
-#include <stdio.h>
-#include <stdbool.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <memory.h>
-
-
-typedef struct matrix {
-    int **values;
-    int nRows;
-    int nCols;
-} matrix;
-
-typedef struct position {
-    int rowIndex;
-    int colIndex;
-} position;
-
-//размещает в динамической памяти матрицу размером nRows на nCols
-matrix getMemMatrix(int nRows, int nCols);
-
-//размещает в динамической памяти массив из nMatrices матриц размером nRows на nCols
-matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
-
-//освобождает память, выделенную под хранение матрицы m
-void freeMemMatrix(matrix *m);
-
-//освобождает память, выделенную под хранение массива ms из nMatrices матриц
-void freeMemMatrices(matrix *ms, int nMatrices);
-
-//ввод матрицы m
-void inputMatrix(matrix m);
-
-//ввод массива из
-//nMatrices матриц, хранящейся по адресу ms
-void inputMatrices(matrix *ms, int nMatrices);
-
-//вывод матрицы m
-void outputMatrix(matrix m);
-
-//вывод массива из
-//nMatrices матриц, хранящейся по адресу ms
-void outputMatrices(matrix *ms, int nMatrices);
-
-//обмен строк с порядковыми
-//номерами i1 и i2 в матрице m
-void swapRows(matrix m, int i1, int i2);
-
-//обмен колонок с порядковыми номерами j1 и j2 в матрице m
-void swapColumns(matrix m, int j1, int j2);
-
-//выполняет сортировку вставками строк
-//матрицы m по неубыванию значения функции criteria применяемой для
-//строк
-void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
-
-//выполняет сортировку вставками
-//столбцов матрицы m по неубыванию значения функции criteria применяемой для столбцов
-void insertionSortColsMatrixByColCriteria(matrix m,
-                                          int (*criteria)(int *, int));
-
-//возвращает значение ’истина’, если
-//матрица m является квадратной, ложь – в противном случае
-bool isSquareMatrix(matrix m);
-
-//возвращает значение
-//’истина’, если матрицы m1 и m2 равны, ложь – в противном случае
-bool twoMatricesEqual(matrix m1, matrix m2);
-
-//возвращает значение ’истина’, если матрица
-//m является единичной, ложь – в противном случае
-bool isEMatrix(matrix m);
-
-//транспонирует квадратную
-//матрицу m
-void transposeSquareMatrix(matrix m);
-
-//возвращает значение ’истина’, если
-//матрица m является симметричной, ложь – в противном случае
-bool isSymmetricMatrix(matrix m);
-
-//возвращает позицию минимального элемента матрицы m
-position getMinValuePos(matrix m);
-
-//возвращает позицию максимального элемента матрицы m
-position getMaxValuePos(matrix m);
-
-//возвращает матрицу, размера nRows на nCols, построенного из элементов массива a, размещенную в динамической
-//памяти
-matrix createMatrixFromArray(const int *a, size_t nRows,
-                             size_t nCols);
-
+//#include <stdio.h>
+//#include <stdbool.h>
+//#include <assert.h>
+//#include <stdlib.h>
+//#include <memory.h>
 //
-matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
-
-//возвращает матрицу - произведение двух матриц m1 и m2
-matrix multiplicationMatrices(matrix m1, matrix m2);
-
-void sortByDistances(matrix m);
-
-position getLeftMin(matrix m);
-
-void swapPenultimateRow(matrix m);
-
-#endif //LIBRARY1_MATRIX_H
+//
+//typedef struct matrix {
+//    int **values;
+//    int nRows;
+//    int nCols;
+//} matrix;
+//
+//typedef struct position {
+//    int rowIndex;
+//    int colIndex;
+//} position;
+//
+////размещает в динамической памяти матрицу размером nRows на nCols
+//matrix getMemMatrix(int nRows, int nCols);
+//
+////размещает в динамической памяти массив из nMatrices матриц размером nRows на nCols
+//matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
+//
+////освобождает память, выделенную под хранение матрицы m
+//void freeMemMatrix(matrix *m);
+//
+////освобождает память, выделенную под хранение массива ms из nMatrices матриц
+//void freeMemMatrices(matrix *ms, int nMatrices);
+//
+////ввод матрицы m
+//void inputMatrix(matrix m);
+//
+////ввод массива из
+////nMatrices матриц, хранящейся по адресу ms
+//void inputMatrices(matrix *ms, int nMatrices);
+//
+////вывод матрицы m
+//void outputMatrix(matrix m);
+//
+////вывод массива из
+////nMatrices матриц, хранящейся по адресу ms
+//void outputMatrices(matrix *ms, int nMatrices);
+//
+////обмен строк с порядковыми
+////номерами i1 и i2 в матрице m
+//void swapRows(matrix m, int i1, int i2);
+//
+////обмен колонок с порядковыми номерами j1 и j2 в матрице m
+//void swapColumns(matrix m, int j1, int j2);
+//
+////выполняет сортировку вставками строк
+////матрицы m по неубыванию значения функции criteria применяемой для
+////строк
+//void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
+//
+////выполняет сортировку вставками
+////столбцов матрицы m по неубыванию значения функции criteria применяемой для столбцов
+//void insertionSortColsMatrixByColCriteria(matrix m,
+//                                          int (*criteria)(int *, int));
+//
+////возвращает значение ’истина’, если
+////матрица m является квадратной, ложь – в противном случае
+//bool isSquareMatrix(matrix m);
+//
+////возвращает значение
+////’истина’, если матрицы m1 и m2 равны, ложь – в противном случае
+//bool twoMatricesEqual(matrix m1, matrix m2);
+//
+////возвращает значение ’истина’, если матрица
+////m является единичной, ложь – в противном случае
+//bool isEMatrix(matrix m);
+//
+////транспонирует квадратную
+////матрицу m
+//void transposeSquareMatrix(matrix m);
+//
+////возвращает значение ’истина’, если
+////матрица m является симметричной, ложь – в противном случае
+//bool isSymmetricMatrix(matrix m);
+//
+////возвращает позицию минимального элемента матрицы m
+//position getMinValuePos(matrix m);
+//
+////возвращает позицию максимального элемента матрицы m
+//position getMaxValuePos(matrix m);
+//
+////возвращает расстояние до начала координат точки с координатами - элементами массива а размера n
+//float getDistance(int *a, int n);
+//
+////возвращает матрицу, размера nRows на nCols, построенного из элементов массива a, размещенную в динамической
+////памяти
+//matrix createMatrixFromArray(const int *a, size_t nRows,
+//                             size_t nCols);
+//
+////возвращает матрицу, размера nRows на nCols, построенного из элементов массива a
+//matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
+//
+////возвращает матрицу - произведение двух матриц m1 и m2
+//matrix multiplicationMatrices(matrix m1, matrix m2);
+//
+////сортирует строки матриц по расстоянию
+//void sortByDistances(matrix m);
+//
+////возвращает первый минимум в матрице m
+//position getLeftMin(matrix m);
+//
+////обменивает столбец с минимумом и предпоследнюю строку матрицы m
+//void swapPenultimateRow(matrix m);
+//
+//#endif //LIBRARY1_MATRIX_H
