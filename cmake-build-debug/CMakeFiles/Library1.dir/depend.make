@@ -7,6 +7,24 @@ CMakeFiles/Library1.dir/libs/algorithms/algorithms.c.obj: \
 CMakeFiles/Library1.dir/libs/data_structures/matrix/matrix.c.obj: \
  ../libs/data_structures/matrix/matrix.c
 CMakeFiles/Library1.dir/main.c.obj: \
- ../libs/algorithms/algorithms.h \
  ../libs/data_structures/string/string_.h \
+ ../libs/data_structures/string/tasks/task1.h \
+ ../libs/data_structures/string/tasks/task10.h \
+ ../libs/data_structures/string/tasks/task11.h \
+ ../libs/data_structures/string/tasks/task12.h \
+ ../libs/data_structures/string/tasks/task13.h \
+ ../libs/data_structures/string/tasks/task14.h \
+ ../libs/data_structures/string/tasks/task15.h \
+ ../libs/data_structures/string/tasks/task16.h \
+ ../libs/data_structures/string/tasks/task17.h \
+ ../libs/data_structures/string/tasks/task18.h \
+ ../libs/data_structures/string/tasks/task19.h \
+ ../libs/data_structures/string/tasks/task2.h \
+ ../libs/data_structures/string/tasks/task3.h \
+ ../libs/data_structures/string/tasks/task4.h \
+ ../libs/data_structures/string/tasks/task5.h \
+ ../libs/data_structures/string/tasks/task6.h \
+ ../libs/data_structures/string/tasks/task7.h \
+ ../libs/data_structures/string/tasks/task8.h \
+ ../libs/data_structures/string/tasks/task9.h \
  ../main.c

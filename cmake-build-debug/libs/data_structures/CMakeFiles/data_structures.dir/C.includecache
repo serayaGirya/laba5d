@@ -17,4 +17,8 @@ memory.h
 -
 stdio.h
 -
+stdbool.h
+-
+stdlib.h
+-
 

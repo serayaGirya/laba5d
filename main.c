@@ -1,8 +1,24 @@
-//#include "libs/data_structures/matrix/matrix.h"
-#include "libs/algorithms/algorithms.h"
 #include <assert.h>
 #include "libs/data_structures/string/string_.h"
-
+#include "libs/data_structures/string/tasks/task1.h"
+#include "libs/data_structures/string/tasks/task2.h"
+#include "libs/data_structures/string/tasks/task3.h"
+#include "libs/data_structures/string/tasks/task4.h"
+#include "libs/data_structures/string/tasks/task5.h"
+#include "libs/data_structures/string/tasks/task6.h"
+#include "libs/data_structures/string/tasks/task7.h"
+#include "libs/data_structures/string/tasks/task8.h"
+#include "libs/data_structures/string/tasks/task9.h"
+#include "libs/data_structures/string/tasks/task10.h"
+#include "libs/data_structures/string/tasks/task11.h"
+#include "libs/data_structures/string/tasks/task12.h"
+#include "libs/data_structures/string/tasks/task13.h"
+#include "libs/data_structures/string/tasks/task14.h"
+#include "libs/data_structures/string/tasks/task15.h"
+#include "libs/data_structures/string/tasks/task16.h"
+#include "libs/data_structures/string/tasks/task17.h"
+#include "libs/data_structures/string/tasks/task18.h"
+#include "libs/data_structures/string/tasks/task19.h"
 
 
 //5e tests
@@ -93,44 +109,32 @@ void test_findSpace() {
     test_findSpace_endWord();
 }
 
-void test_task2_noSpace() {
-    char word[] = "dddddd";
-    removeExtraSpaces(word);
-    assert(word == "");
-}
-
-void test_task2_spaces1() {
-    char word[] = " abcdef";
-    removeExtraSpaces(word);
-    assert(word == "a abcdef");
-}
-
-void test_task2_spaces2() {
-    char word[] = " a  b  cd";
-    removeExtraSpaces(word);
-    assert(word == "aaaaba cd");
-}
-
-void test_task2_allSpaces() {
-    char word[] = "    ";
-    removeExtraSpaces(word);
-    assert(word == "");
-}
-
-void test_task2() {
-    test_task2_noSpace();
-    test_task2_spaces1();
-    test_task2_spaces2();
-    test_task2_allSpaces();
-}
 
 int main() {
 
-    test_task2();
     test_strlen__();
     test_findNonSpaceReverse();
     test_findNonSpace();
     test_findSpace();
+    test_removeNonLetters_1();
+    test_removeExtraSpaces_2();
+    test_digitToStartString_3();
+    test_replacesNumbersWithSpaces_4();
+    //test_5
+    test_areWordsOrdered_6();
+    //test_6
+    test_numOfPalindromeWords_8();
+    test_alternatingWords_9();
+    test_reverseSentence_10();
+    testAll_getWordBeforeFirstWordWithA();
+    test_lastWordInFirstStringIsInSecondString_12();
+    test_equalWordsInStrings_13();
+    test_wordsFromSameLetters_14();
+    //test_15
+    //test_16
+    //test_17
+    //test_18
+    //test_19
 
     return 0;
 }

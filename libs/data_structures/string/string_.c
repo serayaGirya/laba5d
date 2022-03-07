@@ -51,9 +51,8 @@ char *findSpaceReverse(char *rbegin, const char *rend) {
     return rbegin;
 }
 
-////TODO переделать стрКомпаре
-int strcmp(const char *lhs, const char *rhs) {
-    while (*rhs == *lhs && *rhs != 0 && *lhs != 0) {
+int strcmp_(const char *lhs, const  char *rhs) {
+    while (*rhs == *lhs && *rhs) {
         lhs++;
         rhs++;
     }
@@ -64,6 +63,17 @@ int strcmp(const char *lhs, const char *rhs) {
 char *copy(const char *beginSource, const char *endSource, char *beginDestination) {
     memcpy(beginDestination, beginSource, endSource - beginSource);
     return beginDestination + (endSource - beginSource + 1);
+}
+
+char *copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int)) {
+    while (beginSource != endSource) {
+        if (f(*beginSource)) {
+            *beginDestination = *beginSource;
+            beginDestination++;
+        }
+        beginSource++;
+    }
+    return beginDestination;
 }
 
 char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
@@ -77,45 +87,46 @@ char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
     return beginDestination;
 }
 
-//testFunction
-
-int countSpaces(char *s) {
-    int countSpace = 0;
-    while (*s != '\0') {
-        if (isspace(*s)) {
-            countSpace++;
-            s++;
-        } else
-            s++;
-    }
-
-    return countSpace;
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (strcmp_(expected, got) != 0) {
+        fprintf(stderr, " File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, " Expected : \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
 }
 
-char getFirstNonSpaceSymbol(const char *s) {
-    char nonSpaceSymbol = 0;
-    while (*s != '\0') {
-        if (*s == ' ') {
-            s++;
-        } else {
-            nonSpaceSymbol = *s;
-            break;
-        }
-    }
 
-    return nonSpaceSymbol;
+bool getWord(char *beginSearch, WordDescriptor *word) {
+    *word->begin = *findNonSpace(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+
+    word->end = findSpace(word->begin);
+
+    return true;
 }
 
-void removeExtraSpaces(char *s) {
-    int countSpace = countSpaces(s);
-    char nonSpaceSymbol = getFirstNonSpaceSymbol(s);
-    while (countSpace != 1 && *s != '\0') {
-        if (isspace(*s)) {
-            *s = nonSpaceSymbol;
-            s++;
-            countSpace--;
-        } else
-            s++;
+void getBagOfWords(BagOfWords *bag, char *s) {
+    bag->size = 0;
+    WordDescriptor word;
+    while (getWord(s, &word)) {
+        bag->words[bag->size] = word;
+        bag->size++;
+        s = word.end;
     }
+}
+
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+    char *begin1 = w1.begin;
+    char *begin2 = w2.begin;
+    while (begin1 != w1.end - 1 && (*begin1 == *begin2)) {
+        begin1++;
+        begin2++;
+    }
+    return *begin1 - *begin2;
 }
 
